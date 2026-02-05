@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIND: Benchmarking Memory Consistency and Action Control in World Models</title>
+
+  <link rel="shortcut icon" href="resources/icon/logo_square.png">
+
+  <!-- Fonts and Icons
+  <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- Main stylesheet reused from the reference project -->
+  <link href="resources/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <br /><br /><br />
+  <center>
+    <span class="header-text">
+      <img src="resources/icon/logo_transparent.png" alt="logo" style="height: 1em; vertical-align: top;"/> <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>: Benchmarking Memory Consistency and Action Control <br> in World Models
+    </span>
+  </center>
+
+  <br />
+
+  <center>
+    <div class="author-block">
+      <b>Yixuan Ye, Xuanyu Lu, Yuxin Jiang, Yuchao Gu, Rui Zhao, Qiwei Liang, Jiachun Pan, Fengda Zhang, Weijia Wu, Alex Jinpeng Wang </b>
+    </div>
+  </center>
+
+  <center>
+    <br />
+    <h2 class="tldr-section" style="color: red;">
+      <b>TL;DR:</b>&nbsp; <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> is the first open-domain benchmark for evaluating memory consistency and action control <br> in world models
+    </h2>
+    <div class="image-container">
+      <img id="teaser-image" src="resources/intro/first_figure.png" alt="Project Teaser" />
+    </div>
+  </center>
+
+  <!-- Abstract -->
+  <div class="docs-section" id="abstract">
+    <center>
+      <h1 class="navbar-heading"><b>Abstract</b></h1>
+    </center>
+    <div class="text-container">
+      <p>
+        World models aim to understand, remember, and predict dynamic visual environments, yet a unified benchmark for evaluating their fundamental abilities remains lacking. To address this gap, we introduce 
+        <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>, the first open-domain benchmark for evaluating <span style="color:#1F82C0">M</span>emory cons<span style="color:#1CBF91">I</span>stency and action co<span style="color:#39C46E">N</span>trol in worl<span style="color:#149C7E">D</span> models. <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> contains 250 high-quality videos at 1080p and 24 FPS, including 100 (first-person) + 100 (third-person) video clips under a shared action space and 25 + 25 clips across varied action spaces covering eight diverse scenes. We design an efficient evaluation framework to measure two core abilities: memory consistency and action control, capturing temporal stability and contextual coherence across viewpoints. Furthermore, we design various action spaces, including different character movement speeds and camera rotation angles, to evaluate the action generalization capability across different action spaces under shared scenes. To facilitate future performance benchmarking on <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>, we introduce SkyReels-V2-MIND, a novel interactive Video-to-World baseline. Extensive experiments demonstrate the completeness of <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> and reveal key challenges in current world models, including the difficulty of maintaining long-term memory consistency and generalizing across action spaces.
+      </p>
+    </div>
+  </div>
+
+  <!-- Method / Overview -->
+  <div class="docs-section" id="method">
+    <center>
+      <h1 class="navbar-heading"><b>Overview</b></h1>
+    </center>
+
+    <div class="image-container">
+      <img id="overview-image" src="resources/intro/overview.png" alt="HAMLET Overview Diagram" />
+    </div>
+
+    <div class="text-container">
+      <p>
+        Overview of the <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>. We build and collect the first open-domain benchmark using Unreal Engine 5, supporting both first-person and third-person perspectives with 1080p resolution at 24 FPS.
+      </p>
+    </div>
+  </div>
+
+    <!-- Method / Overview -->
+  <div class="docs-section" id="method">
+    <center>
+      <h1 class="navbar-heading"><b><span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> Dataset</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+        <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+      </button>
+      </h1>
+    </center>
+
+        <div class="video-item">
+          <video src="resources/intro/scene_video.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+
+    <div class="text-container">
+      <p>
+        Distribution for Scene Categories and Action Space in <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> Dataset. <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> supports open-domain scenarios with diverse and well-balanced action spaces.
+      </p>
+    </div>
+  </div>
+<!-- 
+  <div class="docs-section" id="results">
+    <center>
+      <h1 class="navbar-heading">
+        <b>Scene</b>
+      </h1>
+    </center>
+    <div class="image-item">
+      <img src="resources/intro/scene.png" alt="Challenge 2 Diagram">
+      <div class="text-container">
+        <p>hello world</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Results -->
+  <div class="docs-section" id="results">
+<center>
+  <div class="navbar-heading-demo">
+    <div class="title-row">
+      <b style="font-size: 2rem;">Demo</b>
+      <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+        <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+      </button>
+    </div>
+    <p class="subtitle-hint">
+      (The closer the inferred video is to the ground truth, the better.)
+    </p>
+  </div>
+</center>
+    <div class="task-block" id="task-1">
+      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">Ground Truth</h3></center>
+      <div class="video-grid four-col-grid" aria-label="Task 1-a">
+        <div class="video-item">
+          <video src="resources/demo1/2025-10-30-17-58-LandscapePackOne_SnowyMountain01-3m21s-gt.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo2/2025-11-5-21-24-Paragon_Sample-0m33s-gt.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo3/2025-10-18-20-24-HandPaintedEnvironment_Winter_Scene-2m06s-gt.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo4/2025-10-20-20-3-Industrial_Warehouse-1m31s-gt.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+      </div>
+      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">SkyReels-V2-MIND (Ours) <i style="color:#00D084;">w/ Memory</i></h3></center>
+      <div class="video-grid four-col-grid" aria-label="Task 1-a">
+        <div class="video-item">
+          <video src="resources/demo1/2025-10-30-17-58-LandscapePackOne_SnowyMountain01-3m21s-v2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo2/2025-11-5-21-24-Paragon_Sample-0m33s-v2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo3/2025-10-18-20-24-HandPaintedEnvironment_Winter_Scene-2m06s-v2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo4/2025-10-20-20-3-Industrial_Warehouse-1m31s-v2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+      </div>
+      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">SkyReels-V2-MIND (Ours) <i style="color:#c90f0f;">w/o Memory</i></h3></center>
+      <div class="video-grid four-col-grid" aria-label="Task 1-a">
+        <div class="video-item">
+          <video src="resources/demo1/2025-10-30-17-58-LandscapePackOne_SnowyMountain01-3m21s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo2/2025-11-5-21-24-Paragon_Sample-0m33s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo3/2025-10-18-20-24-HandPaintedEnvironment_Winter_Scene-2m06s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo4/2025-10-20-20-3-Industrial_Warehouse-1m31s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+      </div>
+      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">Matrix-game-2.0</h3></center>
+      <div class="video-grid four-col-grid" aria-label="Task 1-a">
+        <div class="video-item">
+          <video src="resources/demo1/2025-10-30-17-58-LandscapePackOne_SnowyMountain01-3m21s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo2/2025-11-5-21-24-Paragon_Sample-0m33s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo3/2025-10-18-20-24-HandPaintedEnvironment_Winter_Scene-2m06s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/demo4/2025-10-20-20-3-Industrial_Warehouse-1m31s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="docs-section" id="results">
+    <center>
+      <h1 class="navbar-heading">
+        <b>Challenge 1: Open Domain</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+          <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+        </button>
+      </h1>
+    </center>
+    <div class="task-block" id="task-1">
+      <div class="video-grid four-col-grid" aria-label="Task 1-a">
+        <div class="video-item">
+          <div class="video-caption">Origin</div>
+          <img src="resources/challenge1/out_gt.png" alt="Ground Truth First Frame"/>
+        </div>
+        <div class="video-item">
+          <div class="video-caption">Trained on <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> Dataset</Data></div>
+          <video src="resources/challenge1/out-mind.mp4" playsinline muted loop preload="auto"></video>
+          
+        </div>
+        <div class="video-item">
+          <div class="video-caption">Trained on Minecraft Dataset</div>
+          <video src="resources/challenge1/out-minecraft.mp4" playsinline muted loop preload="auto"></video>
+          
+        </div>
+        <div class="text-container" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+          <p>How to achieve open-domain generalization with readily available large-scale data (e.g., Minecraft Datasets)?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="docs-section" id="results">
+    <!-- <center>
+      <h1 class="navbar-heading">
+        <b>Challenge 2: Action Space Generalization</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+          <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+        </button>
+      </h1>
+    </center> -->
+
+    <div class="navbar-heading-demo">
+    <div class="title-row">
+      <b style="font-size: 2rem;">Challenge 2: Action Space Generalization</b>
+      <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+        <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+      </button>
+    </div>
+    <p class="subtitle-hint">
+      (The closer the inferred video is to the ground truth, the better.)
+      </p>
+    </div>
+
+    <div class="video-grid two-col-grid" aria-label="Task 1-a">
+      <div class="video-grid one-three-col-grid" aria-label="Task 1-a">
+        <div class="text-container" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+            <p style="font-size: 24px; font-weight: bold; margin: 0;">0.8 X</p>
+        </div>
+        <div class="video-item">
+          <div class="video-caption"><i style="color:#c90f0f;">w/o Memory</i></div>
+          <video src="resources/challenge2/2025-11-8-18-37-Downtown_West-0.8x-175-4m35s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <div class="video-caption">Ground Truth</div>
+          <video src="resources/challenge2/2025-11-8-18-37-Downtown_West-0.8x-175-4m35s-gt.mp4" playsinline muted loop preload="auto"></video>
+          
+        </div>
+        <div class="video-item">
+          <div class="video-caption"><i style="color:#00D084;">w/ Memory</i></div>
+          <video src="resources/challenge2/2025-11-8-18-37-Downtown_West-0.8x-175-4m35s-v2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="text-container" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+            <p style="font-size: 24px; font-weight: bold; margin: 0;">1.0 X</p>
+        </div>
+        <div class="video-item">
+          <video src="resources/challenge2/2025-10-30-14-3-Cyberpunk_Industries-0m23s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/challenge2/2025-10-30-14-3-Cyberpunk_Industries-0m23s-gt.mp4" playsinline muted loop preload="auto"></video>
+          
+        </div>
+        <div class="video-item">
+          <video src="resources/challenge2/2025-10-30-14-3-Cyberpunk_Industries-0m23s-v2v.mp4" playsinline muted loop preload="auto"></video>
+          
+        </div>
+      </div>
+      <div class="image-item">
+        <img src="resources/challenge2/challenge_2.png" alt="Challenge 2 Diagram">
+      </div>
+    </div>
+    <div class="text-container">
+      <p>
+        How to overcome the interference caused by the mismatch between the implicit action space in context memory and the training distribution, thereby preventing catastrophic performance degradation of memory-augmented models during action space generalization?
+      </p>
+    </div>
+  </div>
+
+  <div class="docs-section" id="results">
+    <center>
+      <h1 class="navbar-heading">
+        <b>Challenge 3: Precise Action Control</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+          <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+        </button>
+      </h1>
+    </center>
+    <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">SkyReels-V2-MIND (Ours)</h3></center>
+    <div class="video-grid four-col-grid" aria-label="Task 1-a">
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-18-16-31-BoardcastStudio_A-1m01s_-a_idx428_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-18-19-59-HandPaintedEnvironment_Winter_Scene-1m31s_-wr_idx227_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-19-0-33-Stylized_Egypt-4m31s_-wl_idx41_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-19-15-44-Starter_Bundle-4m43s_-a_idx353_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+    </div>
+    <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">Matrix-game-2.0</h3></center>
+    <div class="video-grid four-col-grid" aria-label="Task 1-a">
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-22-23-40-DowntownWest-4m58s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-20-19-43-Industrial_Warehouse-2m08s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <video src="resources/challenge3/2025-10-30-22-35-Stunning_Level-3m38s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <video src="resources/challenge3/2025-11-5-17-4-Factory_Environment-4m12s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+    </div>
+    <div class="text-container">
+      <p>
+        How to effectively decouple visual prompts from action dynamics, thereby preventing world models from being interfered by initial images/videos when executing precise action sequences, and achieving true precise action control?
+      </p>
+    </div>
+  </div>
+
+  <div class="docs-section" id="results">
+    <!-- <center>
+      <h1 class="navbar-heading">
+        <b>Challenge 4: Long Context Memory</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+          <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+        </button>
+      </h1>
+    </center> -->
+
+        <div class="navbar-heading-demo">
+    <div class="title-row">
+      <b style="font-size: 2rem;">Challenge 4: Long Context Memory</b>
+      <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+        <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+      </button>
+    </div>
+    <p class="subtitle-hint">
+      (The closer the inferred video is to the ground truth, the better.)
+      </p>
+    </div>
+
+    <div class="video-grid two-col-grid" aria-label="Task 1-a">
+      <div class="video-grid three-col-grid" aria-label="Task 1-a">
+        <div class="video-item">
+          <div class="video-caption"><i style="color:#c90f0f;">w/o Memory</i></div>
+          <video src="resources/challenge4/2025-10-20-18-16-Stylized_Kitchen-0m54s-i2v.mp4" playsinline muted preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <div class="video-caption">Ground Truth</div>
+          <video src="resources/challenge4/2025-10-20-18-16-Stylized_Kitchen-0m54s-gt.mp4" playsinline muted preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <div class="video-caption"><i style="color:#00D084;">w/ Memory</i></div>
+          <video src="resources/challenge4/2025-10-20-18-16-Stylized_Kitchen-0m54s-v2v.mp4" playsinline muted preload="auto"></video>
+        </div>
+        <div class="video-item">
+          <video src="resources/challenge4/2025-10-18-18-39-HandPaintedEnvironment_Summer_Scene-3m31s-i2v.mp4" playsinline muted preload="auto"></video>
+          
+        </div>
+        <div class="video-item">
+          <video src="resources/challenge4/2025-10-18-18-39-HandPaintedEnvironment_Summer_Scene-3m31s-gt.mp4" playsinline muted preload="auto"></video>
+          
+        </div>
+        <div class="video-item">
+          <video src="resources/challenge4/2025-10-18-18-39-HandPaintedEnvironment_Summer_Scene-3m31s-v2v.mp4" playsinline muted preload="auto"></video>
+          
+        </div>
+      </div>
+      <div class="image-item">
+        <img src="resources/challenge4/challenge4.png" />
+      </div>
+    </div>
+    <div class="text-container">
+    <p>
+    How to effectively maintain and leverage long-context memory, thereby enabling world models to achieve and sustain high consistency with ground-truth trajectories in ultra-long-horizon rollouts?
+    </p>
+    </div>
+  </div>
+
+  <div class="docs-section" id="results">
+    <center>
+      <h1 class="navbar-heading">
+        <b>Challenge 5: Generated Scene Consistency</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+          <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+        </button>
+      </h1>
+    </center>
+    <div class="video-grid four-col-grid" aria-label="Task 1-a">
+      <div class="video-item">
+        <div class="video-caption">Matrix-game-2.0</div>
+        <video src="resources/challenge5/2025-10-18-18-39-HandPaintedEnvironment_Summer_Scene-3m31s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        
+      </div>
+      <div class="video-item">
+        <div class="video-caption">Matrix-game-2.0</div>
+        <video src="resources/challenge5/2025-10-19-0-33-Stylized_Egypt-4m31s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+      </div>
+      <div class="video-item">
+        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <video src="resources/challenge5/2025-10-19-12-49-ObsidianGoldOrnates_YV-1m46s_-sl_idx54_s0-i2v.mp4" playsinline muted loop preload="auto"></video>
+      
+      </div>
+      <div class="video-item">
+        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <video src="resources/challenge5/2025-10-18-21-12-Namaqualand-4m05s_-sl_idx327_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
+       
+      </div>
+    </div>
+       <div class="text-container">
+    <p>
+    How to ensure high consistency in world models when repeatedly generating the same region?
+        </p>
+    </div>
+  </div>
+
+  <div class="docs-section" id="results">
+    <center>
+      <h1 class="navbar-heading">
+        <b>Challenge 6: Third-person Perspective</b>
+        <button class="play-all-btn" onclick="toggleVideoGroup(this)">
+          <img class="play-all-icon" src="resources/icon/play.svg" alt="Play All" />
+        </button>
+      </h1>
+    </center>
+    <div class="video-grid four-col-grid" aria-label="Task 1-a">
+      <div class="video-item">
+        <div class="video-caption">Matrix-game-2.0</div>
+        <video src="resources/challenge6/2025-10-30-15-54-Downtown_West-4m15s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        
+      </div>
+      <div class="video-item">
+        <div class="video-caption">Matrix-game-2.0</div>
+        <video src="resources/challenge6/2025-11-2-21-34-Soul_City-0m57s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
+        
+      </div>
+      <div class="video-item">
+        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <video src="resources/challenge6/2025-10-30-13-1-Fantastic_Village-5m06s-i2v.mp4" playsinline muted loop preload="auto"></video>
+        
+      </div>
+      <div class="video-item">
+        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <video src="resources/challenge6/2025-11-3-16-46-CityKit_BR-3m09s-v2v.mp4" playsinline muted loop preload="auto"></video>
+        
+      </div>
+    </div>
+           <div class="text-container">
+    <p>
+    How to endow world models with the ability to correctly model physical interactions and spatial relationships between agents and the environment?
+            </p>
+    </div>
+  </div>
+
+  <br /><br /><br /><br />
+  <script>
+    function toggleVideoGroup(button) {
+      // Find the icon and video container relative to the clicked button
+      const icon = button.querySelector('.play-all-icon');
+      const videoContainer = button.closest('.docs-section');
+      
+      if (!videoContainer || !icon) return;
+
+      const videos = videoContainer.querySelectorAll('video');
+      const isPlaying = icon.src.includes('pause.svg');
+
+      if (isPlaying) {
+        // If currently playing (showing pause icon), pause them all
+        videos.forEach(video => video.pause());
+        icon.src = 'resources/icon/play.svg';
+        icon.alt = 'Play All';
+      } else {
+        // If currently paused (showing play icon), play them all
+        videos.forEach(video => video.play());
+        icon.src = 'resources/icon/pause.svg';
+        icon.alt = 'Pause All';
+      }
+    }
+  </script>
+</body>
+</html>
