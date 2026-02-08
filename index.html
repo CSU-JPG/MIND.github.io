@@ -18,31 +18,82 @@
 </head>
 
 <body>
-  <br /><br /><br />
-  <center>
-    <span class="header-text">
+  <br /><br />
+<center>
+    <span class="header-text" style="display: inline-block; margin-bottom: 5px;"> <!-- 关键：减少底部间距 -->
       <img src="resources/icon/logo_transparent.png" alt="logo" style="height: 1em; vertical-align: top;"/> <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>: Benchmarking Memory Consistency and Action Control <br> in World Models
     </span>
-  </center>
-
-  <br />
-
-  <center>
-    <div class="author-block">
-      <b>Yixuan Ye, Xuanyu Lu, Yuxin Jiang, Yuchao Gu, Rui Zhao, Qiwei Liang, Jiachun Pan, Fengda Zhang, Weijia Wu, Alex Jinpeng Wang </b>
+</center>
+<center>
+    <h6 class="tldr-section" style="color: red; margin-top: 0; margin-bottom: 0;"> <!-- 关键：移除顶部默认间距 -->
+      TL;DR: The first open-domain closed-loop revisited benchmark for evaluating memory consistency and action control in world models
+    </h6>
+</center>
+<center>
+    <div class="author-block" style="font-size: 20px; line-height: 1.6; margin: 10px 0;">
+        <!-- 作者名称及上标标注 -->
+    <div style="margin-bottom: 15px;">
+        <b>
+            <a href="https://easontut.github.io/" target="_blank" style="text-decoration: none; color: inherit;">Yixuan Ye</a><sup>1*</sup>, 
+            <a href="" target="_blank" style="text-decoration: none; color: inherit;">Xuanyu Lu</a><sup>1*</sup>, 
+            <a href="https://yuxinn-j.github.io/" target="_blank" style="text-decoration: none; color: inherit;">Yuxin Jiang</a><sup>2*</sup>, 
+            <a href="https://ycgu.site/" target="_blank" style="text-decoration: none; color: inherit;">Yuchao Gu</a><sup>2</sup>, 
+            <a href="https://ruizhaocv.github.io/" target="_blank" style="text-decoration: none; color: inherit;">Rui Zhao</a><sup>2</sup>, 
+            <a href="https://kolakivy.github.io/" target="_blank" style="text-decoration: none; color: inherit;">Qiwei Liang</a><sup>3</sup>, 
+            <a href="" target="_blank" style="text-decoration: none; color: inherit;">Jiachun Pan</a><sup>2</sup>, 
+            <a href="" target="_blank" style="text-decoration: none; color: inherit;">Fengda Zhang</a><sup>4</sup>, 
+            <a href="https://weijiawu.github.io/" target="_blank" style="text-decoration: none; color: inherit;">Weijia Wu</a><sup>2†</sup>, 
+            <a href="https://fingerrec.github.io/" target="_blank" style="text-decoration: none; color: inherit;">Alex Jinpeng Wang</a><sup>1†</sup>
+        </b>
     </div>
-  </center>
+        
+        <!-- 机构标注行1 -->
+        <div style="font-size: 20px; margin-bottom: 8px;">
+            <sup>1</sup> CSU-JPG, Central South University &nbsp;&nbsp;
+            <sup>2</sup> National University of Singapore
+        </div>
+        
+        <!-- 机构标注行2 -->
+        <div style="font-size: 20px;">
+            <sup>3</sup> Hong Kong University of Science and Technology (Guangzhou) &nbsp;&nbsp;
+            <sup>4</sup> Nanyang Technological University
+        </div>
+    </div>
+</center>
 
-  <center>
-    <br />
-    <h2 class="tldr-section" style="color: red;">
-      <b>TL;DR:</b>&nbsp; <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> is the first open-domain benchmark for evaluating memory consistency and action control <br> in world models
-    </h2>
+<center>
+    <!-- 优化后的导航链接区域（带悬浮特效） -->
+<div style="margin: 20px 0; font-size: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center;">
+    <a href="https://csu-jpg.github.io/MIND.github.io/" style="margin: 0 12px; text-decoration: none; color: #333; transition: all 0.3s ease; display: inline-block;">
+        🌐 Homepage
+    </a> | 
+    <a href="https://huggingface.co/datasets/CSU-JPG/MIND" style="margin: 0 12px; text-decoration: none; color: #333; transition: all 0.3s ease; display: inline-block;">
+        👉 Dataset
+    </a> | 
+    <a href="https://csu-jpg.github.io/MIND.github.io/" style="margin: 0 12px; text-decoration: none; color: #333; transition: all 0.3s ease; display: inline-block;">
+        📄 Paper
+    </a> | 
+    <a href="https://github.com/CSU-JPG/MIND" style="margin: 0 12px; text-decoration: none; color: #333; transition: all 0.3s ease; display: inline-block;">
+        💻 Code
+    </a> |
+        <a href="https://csu-jpg.github.io/MIND.github.io/" style="margin: 0 12px; text-decoration: none; color: #333; transition: all 0.3s ease; display: inline-block;">
+        🏆 Leaderboard (coming soon)
+    </a>
+    <style>
+        /* 悬浮特效样式 */
+        div a:hover {
+            color: #1F82C0; /* 匹配MIND中M的蓝色，视觉更统一 */
+            font-weight: 600; /* 文字加粗 */
+            transform: scale(1.05); /* 轻微放大 */
+            text-decoration: underline; /* 下划线（可选） */
+        }
+    </style>
+</div>
+    
     <div class="image-container">
       <img id="teaser-image" src="resources/intro/first_figure.png" alt="Project Teaser" />
     </div>
-  </center>
-
+</center>
   <!-- Abstract -->
   <div class="docs-section" id="abstract">
     <center>
@@ -51,7 +102,7 @@
     <div class="text-container">
       <p>
         World models aim to understand, remember, and predict dynamic visual environments, yet a unified benchmark for evaluating their fundamental abilities remains lacking. To address this gap, we introduce 
-        <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>, the first open-domain benchmark for evaluating <span style="color:#1F82C0">M</span>emory cons<span style="color:#1CBF91">I</span>stency and action co<span style="color:#39C46E">N</span>trol in worl<span style="color:#149C7E">D</span> models. <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> contains 250 high-quality videos at 1080p and 24 FPS, including 100 (first-person) + 100 (third-person) video clips under a shared action space and 25 + 25 clips across varied action spaces covering eight diverse scenes. We design an efficient evaluation framework to measure two core abilities: memory consistency and action control, capturing temporal stability and contextual coherence across viewpoints. Furthermore, we design various action spaces, including different character movement speeds and camera rotation angles, to evaluate the action generalization capability across different action spaces under shared scenes. To facilitate future performance benchmarking on <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>, we introduce SkyReels-V2-MIND, a novel interactive Video-to-World baseline. Extensive experiments demonstrate the completeness of <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> and reveal key challenges in current world models, including the difficulty of maintaining long-term memory consistency and generalizing across action spaces.
+        <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>, the first open-domain benchmark for evaluating <span style="color:#1F82C0">M</span>emory cons<span style="color:#1CBF91">I</span>stency and action co<span style="color:#39C46E">N</span>trol in worl<span style="color:#149C7E">D</span> models. <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> contains 250 high-quality videos at 1080p and 24 FPS, including 100 (first-person) + 100 (third-person) video clips under a shared action space and 25 + 25 clips across varied action spaces covering eight diverse scenes. We design an efficient evaluation framework to measure two core abilities: memory consistency and action control, capturing temporal stability and contextual coherence across viewpoints. Furthermore, we design various action spaces, including different character movement speeds and camera rotation angles, to evaluate the action generalization capability across different action spaces under shared scenes. To facilitate future performance benchmarking on <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span>, we introduce MIND-World, a novel interactive Video-to-World baseline. Extensive experiments demonstrate the completeness of <span style="color:#1F82C0">M</span><span style="color:#1CBF91">I</span><span style="color:#39C46E">N</span><span style="color:#149C7E">D</span> and reveal key challenges in current world models, including the difficulty of maintaining long-term memory consistency and generalizing across action spaces.
       </p>
     </div>
   </div>
@@ -139,7 +190,7 @@
           <video src="resources/demo4/2025-10-20-20-3-Industrial_Warehouse-1m31s-gt.mp4" playsinline muted loop preload="auto"></video>
         </div>
       </div>
-      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">SkyReels-V2-MIND (Ours) <i style="color:#00D084;">w/ Memory</i></h3></center>
+      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">MIND-World (Ours) <i style="color:#00D084;">w/ Memory</i></h3></center>
       <div class="video-grid four-col-grid" aria-label="Task 1-a">
         <div class="video-item">
           <video src="resources/demo1/2025-10-30-17-58-LandscapePackOne_SnowyMountain01-3m21s-v2v.mp4" playsinline muted loop preload="auto"></video>
@@ -154,7 +205,7 @@
           <video src="resources/demo4/2025-10-20-20-3-Industrial_Warehouse-1m31s-v2v.mp4" playsinline muted loop preload="auto"></video>
         </div>
       </div>
-      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">SkyReels-V2-MIND (Ours) <i style="color:#c90f0f;">w/o Memory</i></h3></center>
+      <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">MIND-World (Ours) <i style="color:#c90f0f;">w/o Memory</i></h3></center>
       <div class="video-grid four-col-grid" aria-label="Task 1-a">
         <div class="video-item">
           <video src="resources/demo1/2025-10-30-17-58-LandscapePackOne_SnowyMountain01-3m21s-i2v.mp4" playsinline muted loop preload="auto"></video>
@@ -294,7 +345,7 @@
         </button>
       </h1>
     </center>
-    <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">SkyReels-V2-MIND (Ours)</h3></center>
+    <center><h3 style="font-size: 1.35em; margin: 0.8em 0; font-weight: 700;">MIND-World (Ours)</h3></center>
     <div class="video-grid four-col-grid" aria-label="Task 1-a">
       <div class="video-item">
         <video src="resources/challenge3/2025-10-18-16-31-BoardcastStudio_A-1m01s_-a_idx428_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
@@ -411,12 +462,12 @@
         <video src="resources/challenge5/2025-10-19-0-33-Stylized_Egypt-4m31s-matrix_game.mp4" playsinline muted loop preload="auto"></video>
       </div>
       <div class="video-item">
-        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <div class="video-caption">MIND-World (Ours)</div>
         <video src="resources/challenge5/2025-10-19-12-49-ObsidianGoldOrnates_YV-1m46s_-sl_idx54_s0-i2v.mp4" playsinline muted loop preload="auto"></video>
       
       </div>
       <div class="video-item">
-        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <div class="video-caption">MIND-World (Ours)</div>
         <video src="resources/challenge5/2025-10-18-21-12-Namaqualand-4m05s_-sl_idx327_s0-v2v.mp4" playsinline muted loop preload="auto"></video>
        
       </div>
@@ -449,12 +500,12 @@
         
       </div>
       <div class="video-item">
-        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <div class="video-caption">MIND-World (Ours)</div>
         <video src="resources/challenge6/2025-10-30-13-1-Fantastic_Village-5m06s-i2v.mp4" playsinline muted loop preload="auto"></video>
         
       </div>
       <div class="video-item">
-        <div class="video-caption">SkyReels-V2-MIND (Ours)</div>
+        <div class="video-caption">MIND-World (Ours)</div>
         <video src="resources/challenge6/2025-11-3-16-46-CityKit_BR-3m09s-v2v.mp4" playsinline muted loop preload="auto"></video>
         
       </div>

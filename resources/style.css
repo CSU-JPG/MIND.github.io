@@ -1,15 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
-.video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; }
+/* 视频网格 - 保持原有布局逻辑，仅调整整体容器宽度 */
+.video-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 12px; 
+    align-items: start; 
+    max-width: 1200px; /* 限制网格最大宽度 */
+    margin: 0 auto;    /* 居中显示 */
+}
 .four-col-grid { grid-template-columns: repeat(4, 1fr); }
 .three-col-grid { grid-template-columns: repeat(3, 1fr); }
 .three-one-col-grid { grid-template-columns: repeat(3, 1fr) 1.4fr; }
 .one-three-col-grid { grid-template-columns: 0.4fr repeat(3, 1fr); }
 .two-col-grid { grid-template-columns: 2.4fr 1fr; }
-.video-item video { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: #000; }
-.video-item img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: #000; }
+
+.video-item video { 
+    width: 100%; 
+    height: auto; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    background: #000; 
+}
+.video-item img { 
+    width: 100%; 
+    height: auto; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    background: #000; 
+}
 .image-item img { width: 100%; height: auto; }
 .image-item { align-self: center; transform: translateY(-25px); }
+
 .video-caption {
     text-align: center;
     margin-top: 6px;     
@@ -17,8 +39,20 @@
     font-size: 0.95rem;
     color: #555;
 }
-@media (max-width: 1024px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px)  { .video-grid { grid-template-columns: 1fr; } }
+
+/* 响应式网格调整 */
+@media (max-width: 1024px) { 
+    .video-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        max-width: 900px; /* 平板端缩小最大宽度 */
+    } 
+}
+@media (max-width: 600px)  { 
+    .video-grid { 
+        grid-template-columns: 1fr; 
+        max-width: 100%; /* 移动端占满可用宽度 */
+    } 
+}
 
 /* Requested size and styling changes */
 .header-text { font-size: calc(2rem * 1.2); }
@@ -42,6 +76,9 @@
   color: #3a2e00;
   font-weight: 700;
   line-height: 1.55;
+  max-width: 1200px; /* 限制提示框宽度 */
+  margin-left: auto; /* 居中 */
+  margin-right: auto;
 }
 .instruction .instruction-label {
   font-weight: 800;
@@ -69,6 +106,9 @@
   font-weight: 800;
   font-size: 30px;              /* you can tweak to 28–32px */
   line-height: 1.25;
+  max-width: 1200px; /* 限制任务框宽度 */
+  margin-left: auto; /* 居中 */
+  margin-right: auto;
 }
 .task-callout .task-badge {
   font-weight: 900;
@@ -81,29 +121,39 @@
 
 /* General Body Styles */
 body {
-    font-family: "Arial Rounded MT Bold", /*"Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial,*/ sans-serif;
+    font-family: "Arial Rounded MT Bold", sans-serif;
     font-weight: 300;
     font-size: 16px;
     margin: 0 auto;
-    max-width: 90%;
-    padding: 0 20px;
+    max-width: 1280px; /* 核心修改：限制页面最大宽度，不再铺满屏 */
+    padding: 20px;     /* 增加页面内边距，留出留白 */
     color: #666;
+    background-color: #f8f9fa; /* 增加页面背景色，区分内容区和空白区 */
 }
 
 h1 {
     color: #000;
     font-size: 40px;
+    max-width: 1200px; /* 限制标题宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h2 {
     color: #444;
     font-size: 35px;
+    max-width: 1200px; /* 限制标题宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h3 {
     color: #444;
     font-size: 30px;
     font-family: 'Arial Rounded MT Bold', sans-serif;
+    max-width: 1200px; /* 限制标题宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1, h2, h3 {
@@ -114,12 +164,18 @@ h1, h2, h3 {
 
 p {
     margin-bottom: 0.75rem;
+    max-width: 1200px; /* 限制段落文本宽度，提升阅读体验 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 hr {
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    max-width: 1200px; /* 限制分割线宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .disclaimerbox {
@@ -127,11 +183,18 @@ hr {
     border: 1px solid #eeeeee;
     border-radius: 10px;
     padding: 20px;
+    max-width: 1200px; /* 限制声明框宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 img.header-img, img.rounded {
     border: 1px solid #eeeeee;
     border-radius: 10px;
+    max-width: 1200px; /* 限制图片宽度 */
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* 确保居中 */
 }
 
 a:link,
@@ -167,40 +230,47 @@ a:hover {
     display: flex;
     justify-content: center;
     margin: 16px 0px;
+    max-width: 1200px; /* 限制按钮容器宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Layout Container */
 .container {
     margin: 0 auto;
     padding: 0 20px;
-    max-width: 1400px;
+    max-width: 1280px; /* 调整容器最大宽度 */
 }
 
 /* Header Text */
 .header-text {
     display: inline-block;
-    max-width: 100%;
+    max-width: 1200px; /* 限制头部文本宽度 */
     padding: 0 1rem;
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     color: #000;
     word-wrap: break-word;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Navbar Heading */
-
-
 .navbar-heading {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 15px; /* Adds space between title and button */
-padding: 10px;
-background-color: #d6e2f6;
-font-size: 2rem;
-text-align: center;
-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Adds space between title and button */
+    padding: 10px;
+    background-color: #d6e2f6;
+    font-size: 2rem;
+    text-align: center;
+    color: #000;
+    max-width: 1280px; /* 限制导航栏宽度 */
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px; /* 增加圆角，提升视觉效果 */
 }
 
 .navbar-heading-demo {
@@ -213,6 +283,10 @@ color: #000;
   background-color: #d6e2f6;
   text-align: center;
   color: #000;
+  max-width: 1280px; /* 限制演示导航栏宽度 */
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px; /* 增加圆角 */
 }
 
 /* Demo + 按鈕那一行保持原本水平置中 */
@@ -220,8 +294,10 @@ color: #000;
   display: flex;
   align-items: center;
   gap: 15px;
+  max-width: 1200px; /* 限制标题行宽度 */
+  margin-left: auto;
+  margin-right: auto;
 }
-
 
 .subtitle-hint {
   margin: 0;
@@ -234,7 +310,7 @@ color: #000;
 .docs-section {
     margin: 2.5rem auto;
     padding: 1rem;
-    max-width: 1400px;
+    max-width: 1200px; /* 限制文档区域宽度 */
     background-color: #f9f9f9;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -248,13 +324,16 @@ color: #000;
     line-height: 1.6;
     color: #555;
     text-align: justify;
+    max-width: 1200px; /* 限制文本容器宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Constrain Teaser Image Width */
 #overview-image {
     display: block;
     margin: 0 auto;
-    max-width: 100%;
+    max-width: 1200px; /* 限制概览图片宽度 */
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -263,7 +342,7 @@ color: #000;
 /* Image Container */
 .image-container {
     margin: 2rem auto;
-    max-width: 1400px;
+    max-width: 1200px; /* 限制图片容器宽度 */
 }
 
 .image-container img {
@@ -282,6 +361,7 @@ color: #000;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 1200px; /* 限制轮播图宽度 */
     margin: auto;
 }
 
@@ -353,6 +433,9 @@ color: #000;
 .author-block {
     font-family: 'Times New Roman', serif;
     font-size: 20px;
+    max-width: 1200px; /* 限制作者信息宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* TL;DR Section */
@@ -360,9 +443,12 @@ color: #000;
     font-size: 24px;
     font-weight: bold;
     color: #444;
+    max-width: 1200px; /* 限制TLDR区域宽度 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Instruction callout */
+/* Instruction callout (重复定义，保留修改后的版本) */
 .instruction {
   display: flex;
   align-items: flex-start;
@@ -376,6 +462,9 @@ color: #000;
   color: #333;
   line-height: 1.55;
   font-size: 2rem;
+  max-width: 1200px; /* 限制提示框宽度 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .instruction .material-icons {
@@ -404,35 +493,42 @@ color: #000;
 @media screen and (max-width: 768px) {
     body {
         font-size: 1rem;
+        max-width: 95%; /* 平板端放宽页面宽度限制 */
+        padding: 15px;
     }
 
     h2 {
-        font-size: 0.9rem;
+        font-size: 28px; /* 修正：原0.9rem过小，改为固定值更合理 */
     }
 
     h3 {
-        font-size: 0.8rem;
+        font-size: 24px; /* 修正：原0.8rem过小 */
     }
 
     .header-text {
         font-size: 1.2rem;
+        max-width: 95%;
     }
 
     .navbar-heading {
         font-size: 1.1rem;
+        max-width: 95%;
     }
 
     .navbar-heading-demo {
         font-size: 1.1rem;
+        max-width: 95%;
     }
 
     .docs-section {
         padding: 1rem;
+        max-width: 95%;
     }
 
     .text-container {
         padding: 0.5rem;
         font-size: 1rem;
+        max-width: 95%;
     }
 
     .carousel-arrow {
@@ -454,14 +550,24 @@ color: #000;
 
     .image-container {
         margin: 0.7rem auto;
+        max-width: 95%;
     }
 
     .author-block {
         font-size: 18px;
+        max-width: 95%;
     }
     
     .tldr-section {
         font-size: 15px;
+        max-width: 95%;
+    }
+
+    /* 平板端统一调整所有容器宽度 */
+    .video-grid, .instruction, .task-callout, h1, h2, h3, p, hr, 
+    .disclaimerbox, .paper-btn-parent, .title-row, #overview-image,
+    .carousel-container {
+        max-width: 95%;
     }
 }
 
@@ -469,14 +575,16 @@ color: #000;
 @media screen and (max-width: 480px) {
     body {
         font-size: 1rem;
+        max-width: 100%; /* 移动端占满屏幕宽度 */
+        padding: 10px;
     }
 
     h2 {
-        font-size: 0.9rem;
+        font-size: 24px; /* 修正：原0.9rem过小 */
     }
 
     h3 {
-        font-size: 0.8rem;
+        font-size: 20px; /* 修正：原0.8rem过小 */
     }
 
     .header-text {
@@ -486,18 +594,22 @@ color: #000;
 
     .navbar-heading {
         font-size: 1.4rem;
+        max-width: 100%;
     }
 
     .navbar-heading-demo {
         font-size: 1.4rem;
+        max-width: 100%;
     }
 
     .docs-section {
         padding: 1rem;
+        max-width: 100%;
     }
 
     .text-container {
         font-size: 1rem;
+        max-width: 100%;
     }
 
     .carousel-arrow {
@@ -519,14 +631,24 @@ color: #000;
 
     .image-container {
         margin: 0.5rem auto;
+        max-width: 100%;
     }
 
     .author-block {
         font-size: 16px;
+        max-width: 100%;
     }
     
     .tldr-section {
         font-size: 14px;
+        max-width: 100%;
+    }
+
+    /* 移动端统一调整所有容器宽度 */
+    .video-grid, .instruction, .task-callout, h1, h2, h3, p, hr, 
+    .disclaimerbox, .paper-btn-parent, .title-row, #overview-image,
+    .carousel-container {
+        max-width: 100%;
     }
 }
 
