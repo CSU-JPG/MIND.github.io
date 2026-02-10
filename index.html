@@ -517,31 +517,76 @@
             </p>
     </div>
   </div>
+<!-- BibTeX 引用区块（仅修改内容，样式/功能不变） -->
+<div class="docs-section" id="citation" style="background-color: #f8f9fa; border-radius: 8px; padding: 25px; margin: 40px auto; max-width: 1200px; border: 1px solid #e9ecef;">
+  <center>
+    <h1 class="navbar-heading"><b>Citation</b></h1>
+  </center>
+  
+  <div style="position: relative; margin-top: 20px;">
+    <!-- 复制按钮（样式/功能不变） -->
+    <button id="copyBibtexBtn" style="position: absolute; top: 10px; right: 10px; background-color: #1F82C0; color: white; border: none; border-radius: 4px; padding: 6px 12px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: background-color 0.2s;">
+      <span class="material-icons" style="font-size: 18px;">content_copy</span>
+      Copy
+    </button>
+    
+    <!-- 仅修改这里的BibTeX内容即可 -->
+    <pre id="bibtexCode" style="background-color: #f1f3f5; border-radius: 6px; padding: 20px; font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; line-height: 1.6; overflow-x: auto; margin: 0;">
+@misc{ye2026mind,
+      title={MIND: Benchmarking Memory Consistency and Action Control in World Models}, 
+      author={Yixuan Ye and Xuanyu Lu and Yuxin Jiang and Yuchao Gu and Rui Zhao and Qiwei Liang and Jiachun Pan and Fengda Zhang and Weijia Wu and Alex Jinpeng Wang},
+      year={2026},
+      eprint={2602.08025},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2602.08025}, 
+}
+    </pre>
+  </div>
+  
+  <p style="margin-top: 15px; font-size: 16px; color: #495057; text-align: center;">
+    If you find our work useful, please consider citing our paper.
+  </p>
+</div>
 
-  <br /><br /><br /><br />
-  <script>
-    function toggleVideoGroup(button) {
-      // Find the icon and video container relative to the clicked button
-      const icon = button.querySelector('.play-all-icon');
-      const videoContainer = button.closest('.docs-section');
-      
-      if (!videoContainer || !icon) return;
+<!-- 原有脚本无需修改（复制功能保持不变） -->
+<script>
+  // 复制BibTeX功能
+  document.getElementById('copyBibtexBtn').addEventListener('click', function() {
+    const bibtexText = document.getElementById('bibtexCode').textContent.trim();
+    navigator.clipboard.writeText(bibtexText).then(() => {
+      const originalText = this.innerHTML;
+      this.innerHTML = '<span class="material-icons" style="font-size: 18px;">check</span> Copied!';
+      this.style.backgroundColor = '#1CBF91';
+      setTimeout(() => {
+        this.innerHTML = originalText;
+        this.style.backgroundColor = '#1F82C0';
+      }, 2000);
+    }).catch(err => {
+      alert('Failed to copy: ' + err);
+    });
+  });
 
-      const videos = videoContainer.querySelectorAll('video');
-      const isPlaying = icon.src.includes('pause.svg');
+  // 原有视频播放控制函数
+  function toggleVideoGroup(button) {
+    const icon = button.querySelector('.play-all-icon');
+    const videoContainer = button.closest('.docs-section');
+    
+    if (!videoContainer || !icon) return;
 
-      if (isPlaying) {
-        // If currently playing (showing pause icon), pause them all
-        videos.forEach(video => video.pause());
-        icon.src = 'resources/icon/play.svg';
-        icon.alt = 'Play All';
-      } else {
-        // If currently paused (showing play icon), play them all
-        videos.forEach(video => video.play());
-        icon.src = 'resources/icon/pause.svg';
-        icon.alt = 'Pause All';
-      }
+    const videos = videoContainer.querySelectorAll('video');
+    const isPlaying = icon.src.includes('pause.svg');
+
+    if (isPlaying) {
+      videos.forEach(video => video.pause());
+      icon.src = 'resources/icon/play.svg';
+      icon.alt = 'Play All';
+    } else {
+      videos.forEach(video => video.play());
+      icon.src = 'resources/icon/pause.svg';
+      icon.alt = 'Pause All';
     }
-  </script>
+  }
+</script>
 </body>
 </html>
